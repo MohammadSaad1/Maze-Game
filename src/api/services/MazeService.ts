@@ -8,11 +8,11 @@ const axiosRequest = (url: string, method: Method, data?: any) => (
     axios({ url, method, data: keysToKebabCase(data) })
 )
 
-export const create = (maze: Maze): Promise<AxiosResponse<Maze>> => {
+export const create = (maze: Maze): Promise<AxiosResponse<{'maze_id': string}>> => {
     return axiosRequest(getEndpoint(), 'post', maze)
 }
 
-export const findLocation = (mazeId: string): any => {
+export const findLocation = (mazeId: string)  => {
     return axiosRequest(getEndpoint(mazeId), 'get')
 }
 
