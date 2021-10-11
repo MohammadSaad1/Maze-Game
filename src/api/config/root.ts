@@ -1,0 +1,1 @@
+export const root = 'https://ponychallenge.trustpilot.com/pony-challenge'

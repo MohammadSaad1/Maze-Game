@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, TextField } from "@material-ui/core"
+import { Box, Grid, Paper } from "@material-ui/core"
 import { useEffect, useState } from "react"
 import CenteredSpinner from "../components/CenteredSpinner/CenteredSpinner"
 import { Stages } from "../infrastructure/enums/Stages"
@@ -9,6 +9,7 @@ const PagePresenter = () => {
     const [stage, setStage] = useState<Stages>(Stages.CreateMaze)
     const [isLoading, setLoading] = useState<boolean>(false)
     const [mazeId, setMazeId] = useState<string>('')
+    const [status, setStatus] = useState<'won' | 'lost' | null>(null)
 
     useEffect(() => {
         if (mazeId) {
@@ -18,7 +19,7 @@ const PagePresenter = () => {
 
     const stages = {
         [Stages.CreateMaze]: () => <CreateMaze setLoading={setLoading} setId={setMazeId} />,
-        [Stages.PlayGround]: () => <PlayGround />,
+        [Stages.PlayGround]: () => <PlayGround setStatus={setStatus} mazeId={mazeId} />,
         [Stages.Result]: () => <Grid />
     }
 
