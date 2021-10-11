@@ -1,6 +1,7 @@
 import { Grid } from "@material-ui/core"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { printMaze } from "../api/services/MazeService"
+import Controller from "../components/Controller/Controller"
 import Field from "../components/GameField/Field"
 
 interface PlayGroundProps {
@@ -23,6 +24,7 @@ const PlayGround = (props: PlayGroundProps) => {
     return (
         <Grid>
             <Field maze={mapMaze} />
+            <Controller horizontalMove={goWest} verticalMove={goNorth} />
         </Grid>
     )
 }
