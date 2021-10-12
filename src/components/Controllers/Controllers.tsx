@@ -3,7 +3,8 @@ import {
     KeyboardArrowUpRounded,
     KeyboardArrowLeftRounded,
     KeyboardArrowRightRounded,
-    KeyboardArrowDownRounded
+    KeyboardArrowDownRounded,
+    CropSquareRounded
 } from "@material-ui/icons"
 import { DirectionType } from "../../api/requests/PostDirectionRequest"
 import GridMap from "../GridMap/GridMap"
@@ -16,7 +17,7 @@ const Controllers = (props: ControllersProps) => {
     const handleMove = (direction: DirectionType) => () => props.move(direction)
 
     return (
-        <Box padding={2}>
+        <Box padding={4} width={150}>
             <GridMap
                 rows={3}
                 columns={3}
@@ -25,36 +26,55 @@ const Controllers = (props: ControllersProps) => {
                         row: 0,
                         column: 1,
                         content: () => (
-                            <IconButton onClick={handleMove('north')}>
-                                <KeyboardArrowUpRounded />
-                            </IconButton>
+                            <Box style={{ background: 'red', borderRadius: '10px 10px 0px 0px' }}>
+                                <IconButton onClick={handleMove('north')}>
+                                    <KeyboardArrowUpRounded />
+                                </IconButton>
+                            </Box>
                         )
                     },
                     {
                         row: 2,
                         column: 1,
                         content: () => (
-                            <IconButton onClick={handleMove('south')}>
-                                <KeyboardArrowDownRounded />
-                            </IconButton>
+                            <Box style={{ background: 'red', borderRadius: '0px 0px 10px 10px' }}>
+                                <IconButton onClick={handleMove('south')}>
+                                    <KeyboardArrowDownRounded />
+                                </IconButton>
+                            </Box>
+                        )
+                    },
+                    {
+                        row: 1,
+                        column: 1,
+                        content: () => (
+                            <Box style={{ background: 'red'}}>
+                                <IconButton onClick={handleMove('stay')}>
+                                    <CropSquareRounded />
+                                </IconButton>
+                            </Box>
                         )
                     },
                     {
                         row: 1,
                         column: 0,
                         content: () => (
-                            <IconButton onClick={handleMove('west')}>
-                                <KeyboardArrowLeftRounded />
-                            </IconButton>
+                            <Box style={{ background: 'red',  borderRadius: '10px 0px 0px 10px'}}>
+                                <IconButton onClick={handleMove('west')}>
+                                    <KeyboardArrowLeftRounded />
+                                </IconButton>
+                            </Box>
                         )
                     },
                     {
                         row: 1,
                         column: 2,
                         content: () => (
-                            <IconButton onClick={handleMove('east')}>
-                                <KeyboardArrowRightRounded />
-                            </IconButton>
+                            <Box style={{ background: 'red', borderRadius: '0px 10px 10px 00px'}}>
+                                <IconButton onClick={handleMove('east')}>
+                                    <KeyboardArrowRightRounded />
+                                </IconButton>
+                            </Box>
                         )
                     }
                 ]}

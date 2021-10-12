@@ -1,4 +1,4 @@
-import { Grid, GridSize } from '@material-ui/core'
+import { Grid, GridSize, GridSpacing } from '@material-ui/core'
 
 interface GridContent {
     content: () => JSX.Element
@@ -21,8 +21,6 @@ const GridMap = (props: GridMapProps) => {
         const gridContent = gridContents.find(content => (
             currentColumn === content.column && currentRow === content.row
         ))
-
-        console.log(gridContents, currentColumn, currentRow, gridContent)
 
         return gridContent?.content()
     }

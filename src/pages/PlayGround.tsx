@@ -50,7 +50,7 @@ const PlayGround = (props: PlayGroundProps) => {
     const directionMove = (direction: Direction) => MazeService.move(props.mazeId, direction).then(() => fetchMazeStatus())
 
     const move = (direction: DirectionType) => {
-        if (!disabledDirections[direction]) {
+        if (direction === 'stay' || !disabledDirections[direction]) {
             directionMove({ direction })
             console.log(`Moved ${direction}`)
             return;
