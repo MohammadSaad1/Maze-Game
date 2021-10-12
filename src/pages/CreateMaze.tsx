@@ -16,8 +16,11 @@ const CreateMaze = (props: CreateMazeProps) => {
 
     const [error, setError] = useState<string>('')
 
-    const handleChange = (setFunction: (value: any) => void) => (event: ChangeEvent<HTMLInputElement>) => {
-        setFunction(event.target.value)
+    const handleChange = (setFunction: (updatedValue: any) => void) => (event: ChangeEvent<HTMLInputElement>) => {
+       const {value} = event.target
+
+       // If it is a number then make it one!
+        setFunction(Number.isFinite(value)? value : Number(value))
     }
 
     const createMazeGame = () => {

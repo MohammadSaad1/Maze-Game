@@ -24,8 +24,8 @@ const PagePresenter = () => {
     }
 
     return (
-        <Paper>
-            <Box width='50vw' height='90vh'>
+        <Paper elevation={3} style={{background: 'darkgray'}}>
+            <Box width='40vw' height='80vh' maxWidth={600} maxHeight={800} padding={5}>
                 <Grid container={true} justifyContent='center' alignContent='center' alignItems='center'>
                     {isLoading ? <CenteredSpinner /> : stages[stage]()}
                 </Grid>

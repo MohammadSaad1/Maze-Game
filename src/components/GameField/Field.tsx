@@ -5,13 +5,11 @@ interface FieldProps {
 }
 
 const Field = (props: FieldProps) => {
-    console.log(props.maze)
-
     return (
-        <Paper style={{background: 'black'}}>
-            <Box padding={2} margin={2} color='green' fontSize='0.8rem'>
+        <Paper style={{ background: 'black' }}>
+            <Box padding={2} margin={2} color='green' fontSize='40%'>
                 <pre>
-                {props.maze}
+                    {props.maze}
                 </pre>
             </Box>
         </Paper>

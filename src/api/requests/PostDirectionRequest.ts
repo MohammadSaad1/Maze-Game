@@ -1,3 +1,5 @@
+export type DirectionType = 'north' | 'west'
+
 export interface Direction {
-    direction: 'north' | 'west'
+    direction: DirectionType
 }
