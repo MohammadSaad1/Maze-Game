@@ -1,27 +1,65 @@
-import { Grid, IconButton } from "@material-ui/core"
-import { KeyboardArrowUpRounded, KeyboardArrowLeftRounded } from "@material-ui/icons"
+import { Box, Grid, IconButton } from "@material-ui/core"
+import {
+    KeyboardArrowUpRounded,
+    KeyboardArrowLeftRounded,
+    KeyboardArrowRightRounded,
+    KeyboardArrowDownRounded
+} from "@material-ui/icons"
+import { DirectionType } from "../../api/requests/PostDirectionRequest"
+import GridMap from "../GridMap/GridMap"
 
 interface ControllersProps {
-    horizontalMove: () => void,
-    verticalMove: () => void,
-    isHorizontalDisabled: boolean,
-    isVertcalDisabled: boolean,
+    move: (direction: DirectionType) => void,
 }
 
 const Controllers = (props: ControllersProps) => {
+    const handleMove = (direction: DirectionType) => () => props.move(direction)
+
     return (
-        <Grid container={true} direction='row' justifyContent='center'>
-            <Grid item={true}>
-                <IconButton disabled={props.isHorizontalDisabled} onClick={props.horizontalMove}>
-                    <KeyboardArrowLeftRounded />
-                </IconButton>
-            </Grid>
-            <Grid item={true}>
-                <IconButton disabled={props.isVertcalDisabled} onClick={props.verticalMove}>
-                    <KeyboardArrowUpRounded />
-                </IconButton>
-            </Grid>
-        </Grid>
+        <Box padding={2}>
+            <GridMap
+                rows={3}
+                columns={3}
+                gridContents={[
+                    {
+                        row: 0,
+                        column: 1,
+                        content: () => (
+                            <IconButton onClick={handleMove('north')}>
+                                <KeyboardArrowUpRounded />
+                            </IconButton>
+                        )
+                    },
+                    {
+                        row: 2,
+                        column: 1,
+                        content: () => (
+                            <IconButton onClick={handleMove('south')}>
+                                <KeyboardArrowDownRounded />
+                            </IconButton>
+                        )
+                    },
+                    {
+                        row: 1,
+                        column: 0,
+                        content: () => (
+                            <IconButton onClick={handleMove('west')}>
+                                <KeyboardArrowLeftRounded />
+                            </IconButton>
+                        )
+                    },
+                    {
+                        row: 1,
+                        column: 2,
+                        content: () => (
+                            <IconButton onClick={handleMove('east')}>
+                                <KeyboardArrowRightRounded />
+                            </IconButton>
+                        )
+                    }
+                ]}
+            />
+        </Box >
     )
 }
 
