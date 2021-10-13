@@ -2,17 +2,12 @@ import { Button, Grid, TextField, Typography } from "@material-ui/core"
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import { Difficulty, MazeRange } from "../api/entities/Maze"
 import * as MazeService from "../api/services/MazeService"
+import { Details } from "../infrastructure/interfaces/Details"
 import { isNumberSameOrBetween } from "../infrastructure/utility/isNumberSameOrBetween"
 
 interface CreateMazeProps {
     setMazeId: Dispatch<SetStateAction<string>>
     setLoading: Dispatch<SetStateAction<boolean>>
-}
-
-
-interface Details {
-    setMethod: Dispatch<SetStateAction<any>>,
-    validation?: (value: any) => boolean
 }
 
 const CreateMaze = (props: CreateMazeProps) => {

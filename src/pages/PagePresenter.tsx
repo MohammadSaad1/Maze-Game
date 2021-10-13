@@ -7,7 +7,6 @@ import CreateMaze from "./CreateMaze"
 import PlayGround from "./PlayGround"
 import Result from "./Result"
 
-
 const PagePresenter = () => {
     const [stage, setStage] = useState<Stages>(Stages.CreateMaze)
     const [isLoading, setLoading] = useState<boolean>(false)
