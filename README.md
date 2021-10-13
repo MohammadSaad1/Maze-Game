@@ -4,8 +4,6 @@
 
 ## Get started
 
-To get started with the project you'd have to
-
 ### Install dependencies:
 `yarn install`
 
