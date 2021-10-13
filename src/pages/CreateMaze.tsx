@@ -4,7 +4,7 @@ import { Difficulty, MazeRange } from "../api/entities/Maze"
 import * as MazeService from "../api/services/MazeService"
 
 interface CreateMazeProps {
-    setId: Dispatch<SetStateAction<string>>
+    setMazeId: Dispatch<SetStateAction<string>>
     setLoading: Dispatch<SetStateAction<boolean>>
 }
 
@@ -17,16 +17,19 @@ const CreateMaze = (props: CreateMazeProps) => {
     const [error, setError] = useState<string>('')
 
     const handleChange = (setFunction: (updatedValue: any) => void) => (event: ChangeEvent<HTMLInputElement>) => {
-       const {value} = event.target
+        const { value } = event.target
 
-       // If it is a number then make it one!
-        setFunction(Number.isFinite(value)? value : Number(value))
+        // If it is a number then make it one!
+        setFunction(Number.isFinite(value) ? value : Number(value))
     }
 
     const createMazeGame = () => {
         props.setLoading(true)
         MazeService.create({ mazePlayerName, mazeHeight, mazeWidth, difficulty })
-            .then(response => props.setId(response.data.maze_id))
+            .then(response => {
+                console.log(response)
+                props.setMazeId(response.data.mazeId)
+            })
             .catch(error => setError(error.response.data))
             .finally(() => props.setLoading(false))
     }

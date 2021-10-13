@@ -1,1 +1,1 @@
-export type State = 'Active' | 'Inactive'
+export type State = 'active' | 'won' | 'over'

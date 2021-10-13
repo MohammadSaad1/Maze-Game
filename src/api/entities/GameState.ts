@@ -3,5 +3,5 @@ import { StateResult } from "../generics/StateResult";
 
 export interface GameState {
     state: State,
-    "state-result": StateResult
+    stateResult: StateResult
 }
