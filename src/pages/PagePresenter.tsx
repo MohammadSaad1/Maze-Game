@@ -15,7 +15,6 @@ const PagePresenter = () => {
     const [state, setState] = useState<State>('active')
 
     useEffect(() => {
-        console.log(mazeId)
         if (mazeId) {
             setStage(Stages.PlayGround)
         }
@@ -34,12 +33,14 @@ const PagePresenter = () => {
     }
 
     return (
-        <Paper elevation={3} style={{ background: 'darkgray' }}>
-            <Box width='40vw' height='80vh' maxWidth={600} maxHeight={800} padding={5}>
-                <Grid container={true} justifyContent='center' alignContent='center' alignItems='center'>
-                    {isLoading ? <CenteredSpinner /> : stages[stage]()}
+        <Paper elevation={0} variant='outlined'>
+            <Grid container={true} justifyContent='center' alignContent='center' alignItems='center'>
+                <Grid item={true}>
+                    <Box padding={2}>
+                        {isLoading ? <CenteredSpinner /> : stages[stage]()}
+                    </Box>
                 </Grid>
-            </Box>
+            </Grid>
         </Paper>
 
     )

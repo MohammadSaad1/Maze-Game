@@ -1,0 +1,25 @@
+.controllers {
+    &-up {
+        background-color: red;
+        border-radius: 10px 10px 0px 0px;
+    }
+
+    &-down {
+        background: red;
+        border-radius: 0px 0px 10px 10px;
+    }
+
+    &-left {
+        background: red;
+        border-radius: 10px 0px 0px 10px;
+    }
+
+    &-right {
+        background: red;
+        border-radius: 0px 10px 10px 00px;
+    }
+
+    &-stay {
+        background: red;
+    }
+}

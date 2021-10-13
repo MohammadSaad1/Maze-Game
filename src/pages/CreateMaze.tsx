@@ -26,10 +26,7 @@ const CreateMaze = (props: CreateMazeProps) => {
     const createMazeGame = () => {
         props.setLoading(true)
         MazeService.create({ mazePlayerName, mazeHeight, mazeWidth, difficulty })
-            .then(response => {
-                console.log(response)
-                props.setMazeId(response.data.mazeId)
-            })
+            .then(response => props.setMazeId(response.data.mazeId))
             .catch(error => setError(error.response.data))
             .finally(() => props.setLoading(false))
     }

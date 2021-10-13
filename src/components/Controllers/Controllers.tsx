@@ -9,11 +9,11 @@ import {
 import { KeyboardEvent } from "react"
 import { DirectionType } from "../../api/requests/PostDirectionRequest"
 import GridMap from "../GridMap/GridMap"
+import './Controllers.scss'
 
 interface ControllersProps {
     move: (direction: DirectionType) => void,
 }
-
 
 const Controllers = (props: ControllersProps) => {
     const handleMove = (direction: DirectionType) => () => props.move(direction)
@@ -32,7 +32,7 @@ const Controllers = (props: ControllersProps) => {
     }
 
     return (
-        <Box onKeyDown={handleMoveByKey} padding={4} width={150}>
+        <Box className='controllers' onKeyDown={handleMoveByKey} padding={4} width={150}>
             <GridMap
                 rows={3}
                 columns={3}
@@ -41,7 +41,7 @@ const Controllers = (props: ControllersProps) => {
                         row: 0,
                         column: 1,
                         content: () => (
-                            <Box style={{ background: 'red', borderRadius: '10px 10px 0px 0px' }}>
+                            <Box className='controllers-up'>
                                 <IconButton onClick={handleMove('north')}>
                                     <KeyboardArrowUpRounded />
                                 </IconButton>
@@ -52,7 +52,7 @@ const Controllers = (props: ControllersProps) => {
                         row: 2,
                         column: 1,
                         content: () => (
-                            <Box style={{ background: 'red', borderRadius: '0px 0px 10px 10px' }}>
+                            <Box className='controllers-down'>
                                 <IconButton onClick={handleMove('south')}>
                                     <KeyboardArrowDownRounded />
                                 </IconButton>
@@ -63,7 +63,7 @@ const Controllers = (props: ControllersProps) => {
                         row: 1,
                         column: 1,
                         content: () => (
-                            <Box style={{ background: 'red' }}>
+                            <Box className='controllers-stay'>
                                 <IconButton onClick={handleMove('stay')}>
                                     <CropSquareRounded />
                                 </IconButton>
@@ -74,7 +74,7 @@ const Controllers = (props: ControllersProps) => {
                         row: 1,
                         column: 0,
                         content: () => (
-                            <Box style={{ background: 'red', borderRadius: '10px 0px 0px 10px' }}>
+                            <Box className='controllers-left'>
                                 <IconButton onClick={handleMove('west')}>
                                     <KeyboardArrowLeftRounded />
                                 </IconButton>
@@ -85,7 +85,7 @@ const Controllers = (props: ControllersProps) => {
                         row: 1,
                         column: 2,
                         content: () => (
-                            <Box style={{ background: 'red', borderRadius: '0px 10px 10px 00px' }}>
+                            <Box className='controllers-right'>
                                 <IconButton onClick={handleMove('east')}>
                                     <KeyboardArrowRightRounded />
                                 </IconButton>

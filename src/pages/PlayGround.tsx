@@ -1,12 +1,12 @@
-import { Grid } from "@material-ui/core"
+import { Box, Grid, Typography } from "@material-ui/core"
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { MazeDetails } from "../api/entities/MazeDetails"
+import { DirectionSet, MazeDetails } from "../api/entities/MazeDetails"
 import { State } from "../api/generics/State"
 import { Direction, DirectionType } from "../api/requests/PostDirectionRequest"
 import * as MazeService from "../api/services/MazeService"
 import Controllers from "../components/Controllers/Controllers"
-import Field from "../components/GameField/Field"
-import { DisabledDirections } from "../infrastructure/interfaces/DisabledDirection"
+import Field from "../components/GameField/GameField"
+import { DisabledDirections } from "../infrastructure/interfaces/DisabledDirections"
 
 interface PlayGroundProps {
     setState: Dispatch<SetStateAction<State>>
@@ -16,24 +16,30 @@ interface PlayGroundProps {
 const PlayGround = (props: PlayGroundProps) => {
     const [mazeDetails, setMazeDetails] = useState<MazeDetails>()
     const [mapMaze, setMapMaze] = useState<string>('')
-    const [disabledDirections, setDisabledDirections] = useState<DisabledDirections>({ south: false, east: false, west: false, north: false })
+    const [disabledDirections, setDisabledDirections] = useState<DisabledDirections>({
+        south: false,
+        east: false,
+        west: false,
+        north: false
+    })
 
     const { mazeId, setState } = props
 
     const fetchMazeStatus = () => MazeService.getMazeDetails(mazeId).then(response => setMazeDetails(response.data))
-    const isDisabled = (type: DirectionType): boolean => {
-        const current = mazeDetails?.domokun[0] ?? 0
+    const getDisabledDirections = (): DisabledDirections => {
+        const current = mazeDetails?.pony[0] ?? 0
         const size = mazeDetails?.size[0] ?? 15
         const data = mazeDetails?.data ?? []
 
-        const wallsFromCurrent = data[current] ?? []
-        const wallsFromNeighbour = data[current + 1] ?? []
-        const wallsFromEdge = data[current + size] ?? []
+        const directions = {
+            north: (data[current] as string[]).includes('north'),
+            west: (data[current] as string[]).includes('west'),
+            east: (data[current + 1] as string[]).includes('west'),
+            south: (data[current + size] as string[]).includes('north')
+        }
 
-        const walls = [...wallsFromCurrent, ...wallsFromNeighbour, ...wallsFromEdge]
 
-        // return walls.length === 2 && walls.every(wall => wall === type)
-        return false
+        return directions
     }
 
     useEffect(() => {
@@ -42,13 +48,7 @@ const PlayGround = (props: PlayGroundProps) => {
 
     useEffect(() => {
         setState(mazeDetails?.gameState.state ?? 'active')
-
-        setDisabledDirections({
-            north: isDisabled('north'),
-            east: isDisabled('east'),
-            west: isDisabled('west'),
-            south: isDisabled('south')
-        })
+        setDisabledDirections(getDisabledDirections())
 
         MazeService.printMaze(mazeId).then(response => setMapMaze(response.data))
     }, [mazeDetails])
@@ -66,10 +66,19 @@ const PlayGround = (props: PlayGroundProps) => {
     }
 
     return (
-        <Grid container={true} direction='column' alignContent='center'>
-            <Field maze={mapMaze} />
-            <Controllers move={move} />
-        </Grid>
+        <Box maxHeight='100vh'>
+            <Grid container={true} direction='column' alignItems='center'>
+                <Box mb={2}>
+                    <Typography variant='h6'>MazeGame</Typography>
+                </Box>
+                <Grid item={true}>
+                    <Field maze={mapMaze} />
+                </Grid>
+                <Grid item={true} xs={12}>
+                    <Controllers move={move} />
+                </Grid>
+            </Grid>
+        </Box>
     )
 }
 
