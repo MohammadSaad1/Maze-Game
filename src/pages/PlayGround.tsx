@@ -32,10 +32,10 @@ const PlayGround = (props: PlayGroundProps) => {
         const data = mazeDetails?.data ?? []
 
         const directions = {
-            north: (data[current] as string[]).includes('north'),
-            west: (data[current] as string[]).includes('west'),
-            east: (data[current + 1] as string[]).includes('west'),
-            south: (data[current + size] as string[]).includes('north')
+            north: (data[current] as string[])?.includes('north')?? false,
+            west: (data[current] as string[])?.includes('west')?? false,
+            east: (data[current + 1] as string[])?.includes('west')?? false,
+            south: (data[current + size] as string[])?.includes('north')?? false
         }
 
         return directions

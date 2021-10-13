@@ -1,26 +1,55 @@
-import { Button, FormHelperText, Grid, TextField, Typography } from "@material-ui/core"
+import { Button, Grid, TextField, Typography } from "@material-ui/core"
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react"
 import { Difficulty, MazeRange } from "../api/entities/Maze"
 import * as MazeService from "../api/services/MazeService"
+import { isNumberSameOrBetween } from "../infrastructure/utility/isNumberSameOrBetween"
 
 interface CreateMazeProps {
     setMazeId: Dispatch<SetStateAction<string>>
     setLoading: Dispatch<SetStateAction<boolean>>
 }
 
+
+interface Details {
+    setMethod: Dispatch<SetStateAction<any>>,
+    validation?: (value: any) => boolean
+}
+
 const CreateMaze = (props: CreateMazeProps) => {
     const [mazePlayerName, setMazePlayerName] = useState<string>('Morning Glory')
     const [mazeHeight, setMazeHeight] = useState<MazeRange>(15)
     const [mazeWidth, setMazeWidth] = useState<MazeRange>(15)
-    const [difficulty, setDifficulty] = useState<Difficulty>(1)
+    const [difficulty, setDifficulty] = useState<Difficulty>(0)
+
+    const details: { [key: string]: Details } = {
+        mazePLayerName: {
+            setMethod: setMazePlayerName
+        },
+        mazeHeight: {
+            setMethod: setMazeHeight,
+            validation: (value: number) => isNumberSameOrBetween(value, 15, 25)
+        },
+        mazeWidth: {
+            setMethod: setMazeWidth,
+            validation: (value: number) => isNumberSameOrBetween(value, 15, 25)
+        },
+        difficulty: {
+            setMethod: setDifficulty,
+            validation: (value: number) => isNumberSameOrBetween(value, 0, 10)
+        }
+    }
 
     const [error, setError] = useState<string>('')
 
-    const handleChange = (setFunction: (updatedValue: any) => void) => (event: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (detail: Details) => (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target
 
         // If it is a number then make it one!
-        setFunction(Number.isFinite(value) ? value : Number(value))
+        const parsedValue = Number.isFinite(value) ? value : Number(value)
+
+        if (!detail.validation || detail.validation(parsedValue)) {
+            detail.setMethod(parsedValue)
+        }
     }
 
     const createMazeGame = () => {
@@ -37,16 +66,16 @@ const CreateMaze = (props: CreateMazeProps) => {
                 <Typography variant='h4'> Maze Game! </Typography>
             </Grid>
             <Grid item={true}>
-                <TextField onChange={handleChange(setMazePlayerName)} type='text' value={mazePlayerName} placeholder='Player name' />
+                <TextField onChange={handleChange(details.mazePlayerName)} type='text' value={mazePlayerName} placeholder='Player name' />
             </Grid>
             <Grid item={true}>
-                <TextField onChange={handleChange(setMazeHeight)} type='number' value={mazeHeight} placeholder='Maze height' />
+                <TextField onChange={handleChange(details.mazeHeight)} type='number' value={mazeHeight} placeholder='Maze height' />
             </Grid>
             <Grid item={true}>
-                <TextField onChange={handleChange(setMazeWidth)} type='number' value={mazeWidth} placeholder='Maze width' />
+                <TextField onChange={handleChange(details.mazeWidth)} type='number' value={mazeWidth} placeholder='Maze width' />
             </Grid>
             <Grid item={true}>
-                <TextField onChange={handleChange(setDifficulty)} type='number' value={difficulty} placeholder='Difficulty' />
+                <TextField onChange={handleChange(details.difficulty)} type='number' value={difficulty} placeholder='Difficulty' />
             </Grid>
 
             <Typography>{error}</Typography>
