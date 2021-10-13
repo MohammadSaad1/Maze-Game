@@ -1,5 +1,6 @@
 # Maze Game!
 
+<img width="469" alt="Skærmbillede 2021-10-14 kl  01 43 09" src="https://user-images.githubusercontent.com/22809862/137227520-84b599b2-222f-4493-8ed6-a2f13e2ac204.png">
 
 
 ## Get started
