@@ -38,7 +38,6 @@ const PlayGround = (props: PlayGroundProps) => {
             south: (data[current + size] as string[]).includes('north')
         }
 
-
         return directions
     }
 
