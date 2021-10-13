@@ -6,10 +6,11 @@
 
 To get started with the project you'd have to
 
-### Install dependencies: `yarn install`
+### Install dependencies:
+`yarn install`
 
-### Start project: `yarn start`
-
+### Start project: 
+`yarn start`
 
 ## How to play
 
