@@ -5,6 +5,10 @@
 
 ## Get started
 
+### Prerequisites:
+`node 16.10`
+`yarn 1.22`
+
 ### Install dependencies:
 `yarn install`
 
